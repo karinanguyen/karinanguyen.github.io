@@ -1,0 +1,93 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+
+.whitespace {
+    height: 150px;
+}
+
+h1 {
+    font-family: "Monument Extended";
+    color: #f1Db61;
+}
+
+img {
+    width: 100%;
+}
+
+.txt {
+    position: relative;
+}
+
+.one {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+/* .text-1 {
+    top: 160px;
+    left: -120px;
+} */
+
+.text-2 {
+    z-index: 1;
+    top: 280px;
+    left: 200px;
+}
+
+.three {
+    z-index: 2;
+    top: -720px;
+    width: 120%;
+    
+}
+
+.four {
+    margin-top: -400px;
+    margin-bottom: 200px;
+}
+
+.text-3 {
+    z-index: 1;
+    top: -140px;
+    left: -180px;
+}
+
+.text-4 {
+    z-index: 1;
+    top: 100px;
+    left: 200px;
+}
+
+.six {
+    top: -750px;
+}
+
+.section-header .section-header-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 60px;
+    padding-top: 32px;
+    font-size: 16px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    color: rgb(165, 165, 165);
+    font-family: monospace;
+    }
+    
+    .section-order {
+        color: #555555;
+        font-size: 15px;
+        padding-right: 18px;
+        font-family: monospace;
+    }
+

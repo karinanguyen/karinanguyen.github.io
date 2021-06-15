@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Karina Nguyen | Product Design</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="resources/css/design.css" />
+    </head>
+    <body>
+        <div class="section-header">
+            <div class="section-header-container">
+                <div class="section-title"> <a style="color: #555555; text-decoration: none; " href="index.html">&larr; Go Back</a></div>
+                <div class="section-order"> Interface prototyping / Product experience / Speculative concepts </div> 
+            </div>
+        </div> 
+        <div class="container">
+            <div class="block block-1">
+                <h1>The New York Times</h1>
+            </a>
+            </div>
+            <div class="block block-2">
+                <h1>Square, Inc.</h1>
+            </div>
+            <div class="block block-3">
+                <h1>Investigations Lab</h1>
+            </div>
+            <div class="block block-4">
+                <h1>Dropbox, Inc.</h1>
+            </div>
+            <div class="block block-5">
+                <h1>Hallo, Co.</h1>
+            </div>
+            <div class="block block-6">
+                <h1>Mesh Terminal</h1>
+            </div>
+        </div>
+        <script src="node_modules/horizontal-scroll/dist/index.js"></script>
+        <script>
+            var blocks = document.getElementsByClassName("block");
+            var container = document.getElementsByClassName("container");
+            var hs = new HorizontalScroll.default({
+                blocks: blocks,
+                container: container,
+                isAnimated: true,
+                springEffect: 0.8,
+            });
+        </script>
+    </body>
+</html>
