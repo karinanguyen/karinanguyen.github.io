@@ -1,3 +1,7 @@
+@font-face {
+    font-family: "Monument Extended";
+    src: url(/monument/MonumentExtended-Ultrabold.otf) format("opentype"); 
+}
 
 
 body {
