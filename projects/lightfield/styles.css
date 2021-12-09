@@ -1,0 +1,127 @@
+*{
+    margin:0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html, body {
+    width: 100%; 
+    height: 100vh; 
+    background-color: #FDEEE6;
+}
+
+@font-face {
+    font-family: Revel;
+    src: url('Revel.ttf') format('truetype');
+  }
+
+h1 { 
+    position: absolute; 
+    top: 40%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    font-size: 6vw;
+    letter-spacing: 5px;
+    font-family: "Revel";
+    color: #211F1F;
+}
+
+.header .letter{
+    display: inline-block;
+    line-height: 1em;
+}
+
+.overlay {
+    position: fixed; 
+    width: 100%;
+    height: 100vh; 
+    background-color: #0f0f0f;
+}
+
+.images{ 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);  
+    display: flex;
+}
+
+.img {
+    width: 140px;
+    height: 180px; 
+    background: black; 
+    filter: grayscale(100%); 
+    opacity: 0.6;
+}
+
+.cover {
+    width: 0px;
+    height: 0px;  
+    opacity: 0.6;
+}
+
+.cover-1 {
+    margin-top: 80%;
+}
+
+.img-1 {
+	transform: scale(1.4);
+	background: url(imgs/image_5.png) 50% 50% no-repeat;
+	background-size: cover;
+}
+
+.img-2 {
+	transform: scale(1);
+	background: url(imgs/image_4.png) 50% 50% no-repeat;
+	background-size: cover;
+}
+
+.img-3 {
+	transform: scale(1.2);
+	background: url(imgs/image_1.png) 100% 100% no-repeat;
+	background-size: cover;
+} 
+
+.img-4 {
+	transform: scale(1.7);
+	background: url(imgs/image_7.png) 50% 50% no-repeat;
+	background-size: cover;
+}  
+
+.img-5 {
+	transform: scale(0.9);
+	background: url(imgs/image_2.png) 50% 50% no-repeat;
+	background-size: cover;
+}  
+
+.img-6 {
+	transform: scale(1.1);
+	background: url(imgs/image_3.png) 50% 50% no-repeat;
+	background-size: cover;
+}  
+
+.img-7 {
+	transform: scale(1.2);
+	background: url(imgs/image_8.png) 50% 50% no-repeat;
+	background-size: cover;
+}  
+
+.img-8 {
+	transform: scale(1);
+	background: url(imgs/image_6.png) 50% 50% no-repeat;
+	background-size: cover;
+}   
+
+
+.navbar {
+	position: absolute;
+	bottom: 30%;
+	width: 100%;
+	margin: 20px auto;
+	display: flex;
+	justify-content: space-evenly;
+	color: black;
+	font-family: "Neue Montreal", Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+}
+

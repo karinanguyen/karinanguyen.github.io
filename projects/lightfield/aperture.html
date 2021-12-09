@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+        <title>Aperture Adjustment</title> 
+        <link rel="stylesheet" href="styles-2.css" /> 
+    </head>
+
+    <body>
+        <div> 
+            <p class="title-02">Aperture Adjustment</p>
+            <p class="subtitle-02"> 
+                In this project I worked with both Stanford Lightfield Archive and MIT Synthetic Archive datasets in order to simulate some of the effects of light field cameras. 
+                This part covers aperture adjustment as another post-processing technique that can be used in lightfield cameras. 
+                Aperture is how much we let the light to pass through the center. We fixate the center of the image and control the radius around the center. 
+                To increase aperture size we increase the size of the radius and the procedure is the same as in depth refocusing in terms of finding the offset, shift and average. 
+                The larger the aperture results in the shallower depth of field; while the smaller / narrower  apperture produces wider / deeper is DOF.</p>
+                <div class="buttonclass">
+                    <div class="btn-6">
+                        <a href="http://graphics.stanford.edu/papers/lfcamera/lfcamera-150dpi.pdf" target="_blank" class="btn-6-wrap">
+                          <span> Lightfield with Plenoptic Camera (Paper)</span>
+                        </a>
+                      </div>  
+        
+                    <div class="btn-6">
+                        <a href="https://arxiv.org/pdf/2009.02582.pdf" target="_blank" class="btn-6-wrap">
+                          <span>Lightfield Refocusing (Paper)</span>
+                        </a>
+                      </div> 
+                </div>
+
+            
+            <p class="title-03">Algorithm</p> 
+
+            
+
+            <p class="subtitle-03"> 
+                <a style="font-weight: 700;">Defining radius. </a>The main assumption we make here is that the aperture size adjustment can be simulated in how many of the sub-aperture images we integrate in image formation. To control
+                thet we would need to have define radius that will be around the center of the image. The smalles radius is no radius would have the smallest aperture (the sharpest image). 
+                We can experiment with various aperture size by increasing the radius value that will define how many of sub-aperture images we want to include, which in image formation terms it means 
+                how much the light will pass through. 
+            </p>
+            <p class="subtitle-03">   
+                <a style="font-weight: 700;">Aperture adjustment. </a> In order to create the effect of controlling aperture size, we would have to again
+                choose the image reference (center) to estimate shift differences: calculating (u,v) offset between each sub-aperture image and the center image. Then we would only average and sum images over the radius indeces. 
+            </p>
+
+
+            <section class="img-gallery"> 
+                <div><img src="output/aperture/amathyst/amathyst0_aperture.png" alt="" style="height:400px"><p class="label">radius = 0</p></div>
+                <div><img src="output/aperture/amathyst/amathyst3_aperture.png" alt="" style="height:400px"><p class="label">radius = 3</p></div>
+                <div><img src="output/aperture/amathyst/amathyst5_aperture.png" alt="" style="height:400px"><p class="label">radius = 5</p></div>
+                <div><img src="output/aperture/amathyst/amathyst7_aperture.png" alt="" style="height:400px"><p class="label">radius = 7</p></div>
+            
+            </section>
+
+
+
+            <p class="title-03">Interactive Gallery</p>  
+
+            <p class="subtitle-03">
+                The range of all sliders is [0,5] with the interval of 1. So, the set of radii would be: 0,1,2,3,4,5. We can see how the center of the image tried to be in focus (since we didn't multiply by scalar), 
+                while the rest of the image gradually varies from shallow DOF (sharp and small aperture) to a deeper DOF (blurrier and larger aperture). 
+            </p>
+            <div class="buttonclass">
+                <div class="btn-6">
+                    <a href="http://lightfield.stanford.edu/lfs.html " target="_blank" class="btn-6-wrap">
+                      <span> Stanford Lightfield Archive</span>
+                    </a>
+                  </div>  
+    
+                <div class="btn-6">
+                    <a href="https://web.media.mit.edu/~gordonw/SyntheticLightFields/index.php" target="_blank" class="btn-6-wrap">
+                      <span>MIT Synthetic Archive</span>
+                    </a>
+                  </div> 
+            </div>
+
+                
+            <p class="title-04">Stanford Lightfield Archive</p> 
+            <section class="sliders"> 
+                <div class="image-slider" data-img-name="self-portrait">?</div> 
+                <div class="image-slider" data-img-name="amathyst">?</div> 
+                <div class="image-slider" data-img-name="flower">?</div> 
+                <div class="image-slider" data-img-name="treasure">?</div>  
+                <div class="image-slider" data-img-name="chess">?</div> 
+            </section>
+
+
+            <p class="title-04">MIT Synthetic Archive</p>  
+
+            <section class="sliders">  
+                <div class="image-slider" data-img-name="butterfly">?</div>  
+                <div class="image-slider" data-img-name="mini">?</div> 
+                <div class="image-slider" data-img-name="dice">?</div>  
+                <div class="image-slider" data-img-name="bunnies">?</div>   
+                <div class="image-slider" data-img-name="teapot">?</div>  
+            </section> 
+
+            <p class="title-03">Learnings</p>   
+            <p class="subtitle-03">   
+               I really liked working on this project. It was cool to simulate different effects of lightfield cameras and get to learn what are the practical applications of such technqiues. 
+               Some of useful resources that I found cool along the process:  
+            </p>
+            <div class="buttonclass-1">
+                <div class="btn-6">
+                    <a href="https://www.youtube.com/watch?v=rEMP3XEgnws" target="_blank" class="btn-6-wrap">
+                      <span> Computerphile's Light Field Camera</span>
+                    </a>
+                  </div>  
+    
+                <div class="btn-6">
+                    <a href="http://raytracey.blogspot.com/2017/05/practical-light-field-rendering.html" target="_blank" class="btn-6-wrap">
+                      <span>Practical Lightfield Rendering</span>
+                    </a>
+                  </div> 
+            </div>
+
+        </div> 
+
+        <script>
+            const allSliders = document.querySelectorAll('.image-slider');
+            const allReplacements = [];
+            for (const slider of allSliders) {
+                const imgName = slider.getAttribute('data-img-name');
+    
+                const container = document.createElement('div');
+                container.innerHTML = `
+                    <div class='image-slider'>
+                        <img class = "im" style="width:100%">
+                        <input type="range" min="0" max="5" value="0" class = "slider">  
+                    </div>`;
+    
+                const dragger = container.querySelector("input");
+                const img = container.querySelector(" .im");
+                dragger.oninput = (event) => {
+                    event.preventDefault();
+                    let sliderVal = dragger.value;
+                    img.src = "output/aperture/"+ imgName + '/' + imgName + sliderVal + '_aperture.png';
+                }
+                img.src = "output/aperture/"+ imgName + '/' + imgName + '0_aperture.png';
+    
+                const fullSlider = container.children[0];
+                allReplacements.push(fullSlider);
+            }
+            for (let i = 0; i < allSliders.length; i++) {
+                const slider = allSliders[i];
+                const replacement = allReplacements[i];
+                slider.replaceWith(replacement);
+            }
+    
+        </script>
+    
+        <!-- <script src="script.js"></script> -->
+
+    </body>

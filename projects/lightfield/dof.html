@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+        <title>Depth Refocusing</title> 
+        <link rel="stylesheet" href="styles-1.css" /> 
+    </head>
+
+    <body>
+        <div> 
+            <p class="title-02">Depth Refocusing</p>
+            <div class = "intro-section">
+                <p class="subtitle-02"> A regular 2D photograph captures the amount of light that runs into each pixel on an image plane, while 4D light field is the amount of light traveling along each ray that runs into the image plan. 
+                    This means that lihtfield camera is able to capture both the direction of the light values and the light values themselves. In the paper by Ng. et al., we can use this  information to enable countless post-processing effects such as refocusing and aperture resizing. As a result, having light field data is useful for photographers as well as production cast as they are in a much more control of motion blur and depth of field for the scene. In this project I worked with both Stanford Lightfield Archive and MIT Synthetic Archive datasets in order to simulate some of the effects of light field cameras. This part covers depth of field manipulation. 
+                </p> 
+                <div class="buttonclass">
+                    <div class="btn-6">
+                        <a href="http://graphics.stanford.edu/papers/lfcamera/lfcamera-150dpi.pdf" target="_blank" class="btn-6-wrap">
+                          <span> Lightfield with Plenoptic Camera (Paper)</span>
+                        </a>
+                      </div>  
+        
+                    <div class="btn-6">
+                        <a href="https://arxiv.org/pdf/2009.02582.pdf" target="_blank" class="btn-6-wrap">
+                          <span>Lightfield Refocusing (Paper)</span>
+                        </a>
+                      </div> 
+                </div>
+                <p class="subtitle-02">
+                    A beautiful concept and the main assumption we make here is that far-away objects from the moving camera differ less in position than closer objects. 
+                    To make sure this assumption works we can average original images. We will see that closer objects will be blurry because of the differences in 
+                    position rather the background that is much sharper (image on the right). The objects which are far away from the camera do not vary their position significantly when the camera moves around while keeping the optical axis direction unchanged. The nearby objects, on the other hand, vary their position significantly across images. Averaging all the images in the grid without any shifting will produce an image which is sharp around the far-away objects but blurry around the nearby ones. Similarly, shifting the images 'appropriately' and then averaging allows one to focus on object at different depths. From this simple concept, we can derive how to create depth refocusing: by shifting images before they 
+                    get averaged to match them better at certain depths in the scene, reducing the differences in position and defocusing other areas. 
+                    </p>
+                    <img src="img_2.png" class = "main-image">
+
+
+            </div>
+
+            <p class="title-03">Algorithm</p> 
+
+            <p class="subtitle-03"> 
+                <a style="font-weight: 700;">Image Integration. </a>Each image collection from the dataset represents a set of sub-aperture images that are taken over 17x17 grid (in total there are 289 images). 
+                This means that light comes through different parts of the same aperture, or we can assume the image was taken with slight different positions. It turns out that 
+                each (x,y) position on the image plane corresponds to each (u,v) position on the aperture plane, which defines a unique ray. This means that we can represent 
+                such images through a set of light rays: every single pixel in the image plane is a combination of unique light rays. In Stanford's dataset the (u.v) position 
+                were already given in the filename of images. In this case, we would have to add and average all the light rays. 
+            </p>
+            <p class="subtitle-03">   
+                <a style="font-weight: 700;">Refocusing. </a> In order to create the effect of depth of field (refocusing on different parts of the image) we would have to 
+                choose the image reference (center) to estimate shift differences: calculating (u,v) offset between each sub-aperture image and the center image. To make the depth refocusing we 
+                would have to multiple the offset (u,v) by scalar c and shift each image by that result. The last part of the algorithm is to add and average those images together (image integration). 
+                
+            </p>
+
+            <p class="subtitle-03">   
+                <a style="font-weight: 700;">Details. </a> 
+                The choice of scalar would define what parts of image we would want to focus on. The range I chose is from [-5,5]. As you will see in the interactive gallery, scalar=-5 and scalar=5 will 
+                produce the blurriest images, while small positive scalars (c=0.25, 0.5, 0.75) would focus more on the frontal objects, while small negative scalars (c=-0.25) will be more focused on the background.  
+                
+            </p>
+
+
+            <section class="sliders"> 
+                <div style="width:338px;max-width:100%;"><div style="height:0;padding-bottom:147.93%;position:relative;"><iframe width="338" height="500" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameBorder="0" src="https://imgflip.com/embed/5x0y7v"></iframe></div></div> 
+                <div style="width:338px;max-width:100%;"><div style="height:0;padding-bottom:147.93%;position:relative;"><iframe width="338" height="500" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameBorder="0" src="https://imgflip.com/embed/5x0wyi"></iframe></div></div> 
+                <div style="width:500px;max-width:100%;"><div style="height:0;padding-bottom:75%;position:relative;"><iframe width="500" height="375" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameBorder="0" src="https://imgflip.com/embed/5x5u8c"></iframe></div></div>
+                <div style="width:338px;max-width:100%;"><div style="height:0;padding-bottom:147.93%;position:relative;"><iframe width="338" height="500" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameBorder="0" src="https://imgflip.com/embed/5x5vyu"></iframe></div></div> 
+            </section>
+
+
+            <section class="img-gallery"> 
+                <div><img src="output/depth_refocus/flower/flower0.png" alt="" style="height:400px"><p class="label">scalar = -5</p></div>
+                <div><img src="output/depth_refocus/flower/flower18.png" alt="" style="height:400px"><p class="label">scalar = -0.5</p></div>
+                <div><img src="output/depth_refocus/flower/flower20.png" alt="" style="height:400px"><p class="label">scalar = 0</p></div>
+                <div><img src="output/depth_refocus/flower/flower28.png" alt="" style="height:400px"><p class="label">scalar = 2</p></div>
+            
+            </section>
+
+
+            <p class="title-03">Interactive Gallery</p>  
+            <p class="subtitle-03">   
+                The range of all sliders is [-5,5] with the interval of 0.25. So, the sequence of scalars would be: -5, -4.75, -4.5, -4.25, -4, ...., 0, ...., 5. It is interesting to observe how depth of field here simulates similar effect as in regular cameras, where bluriness (blur circle is greater than pixel size) can be observed if the image is formed behind the image plane 
+                or in front of it, so the focus area is in between of those ranges. I made this interactive slider for bells & whistles. 
+                
+            </p>
+            <div class="buttonclass">
+                <div class="btn-6">
+                    <a href="http://lightfield.stanford.edu/lfs.html " target="_blank" class="btn-6-wrap">
+                      <span> Stanford Lightfield Archive</span>
+                    </a>
+                  </div>  
+    
+                <div class="btn-6">
+                    <a href="https://web.media.mit.edu/~gordonw/SyntheticLightFields/index.php" target="_blank" class="btn-6-wrap">
+                      <span>MIT Synthetic Archive</span>
+                    </a>
+                  </div> 
+            </div>
+
+                
+            <p class="title-04">Stanford Lightfield Archive</p> 
+            <section class="sliders"> 
+                <div class="image-slider" data-img-name="self-portrait">?</div> 
+                <div class="image-slider" data-img-name="amathyst">?</div> 
+                <div class="image-slider" data-img-name="flower">?</div> 
+                <div class="image-slider" data-img-name="treasure">?</div>  
+                <div class="image-slider" data-img-name="chess">?</div> 
+            </section>
+
+
+            <p class="title-04">MIT Synthetic Archive</p>  
+
+            <section class="sliders">  
+                <div class="image-slider" data-img-name="butterfly">?</div>  
+                <div class="image-slider" data-img-name="mini">?</div> 
+                <div class="image-slider" data-img-name="dice">?</div>  
+                <div class="image-slider" data-img-name="bunnies">?</div>   
+                <div class="image-slider" data-img-name="teapot">?</div>  
+            </section>
+
+            <p class="title-03">Learnings</p>   
+            <p class="subtitle-03">   
+               I really liked working on this project. It was cool to simulate different effects of lightfield cameras and get to learn what are the practical applications of such technqiues. 
+               Some of useful resources that I found cool along the process:  
+            </p>
+            <div class="buttonclass-1">
+                <div class="btn-6">
+                    <a href="https://www.youtube.com/watch?v=rEMP3XEgnws" target="_blank" class="btn-6-wrap">
+                      <span> Computerphile's Light Field Camera</span>
+                    </a>
+                  </div>  
+    
+                <div class="btn-6">
+                    <a href="http://raytracey.blogspot.com/2017/05/practical-light-field-rendering.html" target="_blank" class="btn-6-wrap">
+                      <span>Practical Lightfield Rendering</span>
+                    </a>
+                  </div> 
+            </div>
+        </div> 
+
+        
+
+        <script>
+            const allSliders = document.querySelectorAll('.image-slider');
+            const allReplacements = [];
+            for (const slider of allSliders) {
+                const imgName = slider.getAttribute('data-img-name');
+    
+                const container = document.createElement('div');
+                container.innerHTML = `
+                    <div class='image-slider'>
+                        <img class = "im" style="width:100%">
+                        <input type="range" min="0" max="39" value="0" class = "slider">  
+                    </div>`;
+    
+                const dragger = container.querySelector("input");
+                const img = container.querySelector(" .im");
+                dragger.oninput = (event) => {
+                    event.preventDefault();
+                    let sliderVal = dragger.value;
+                    img.src = "output/depth_refocus/"+ imgName + '/' + imgName + sliderVal + '.png';
+                }
+                img.src = "output/depth_refocus/"+ imgName + '/' + imgName + '0.png';
+    
+                const fullSlider = container.children[0];
+                allReplacements.push(fullSlider);
+            }
+            for (let i = 0; i < allSliders.length; i++) {
+                const slider = allSliders[i];
+                const replacement = allReplacements[i];
+                slider.replaceWith(replacement);
+            }
+    
+        </script>
+    
+        <!-- <script src="script.js"></script> -->
+
+    </body>
